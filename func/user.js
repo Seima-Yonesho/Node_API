@@ -63,9 +63,12 @@ router.post('/login', function(req, res){
 				res.status(400).send({ msg: 'Error!!' });
 				return;
 			}
-			// console.log(results[0].id);
-
-			res.status(200).json({ id: results[0].id});
+      if(results == ''){
+        res.status(200).json({ id: 0 });
+      }
+      else {
+			  res.status(200).json({ id: results[0].id});
+      }
 		}
 	)
 
