@@ -13,7 +13,7 @@ router.get('/',　async function(req, res){
 	try {
 		connection = await mysql2.createConnection(db_setting)
 		await connection.beginTransaction();
-		const [result] = await connection.query('SELECT * FROM customers');
+		const [result] = await connection.query('SELECT * FROM hospitals');
 		await connection.commit();
 		res.status(200).send(result);
 	}catch(err){

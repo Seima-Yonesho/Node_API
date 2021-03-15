@@ -50,8 +50,6 @@ router.get('/:userID', function(req, res){
 router.use(bodyParser.json());
 router.post('/login', function(req, res){
 
-  console.log(req);
-
   let values = [
     req.body.email,
     req.body.password

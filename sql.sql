@@ -1,7 +1,7 @@
 /*
 *   hospitals
 */
-insert into hospitals (id, name, phone, mail, password, address) values (1, '今西病院', '111-2222-3333', 'imanishihospital@mail.co.jp', 'password', '〒105-0011 東京都港区芝公園４丁目２−８');
+insert into hospitals (id, name, phone, mail, password, address) values (1, '今西医院', '06-2456-9272', 'imanishihospital@mail.co.jp', 'hospital', '大阪府高槻市阿武野１丁目１−番１号');
 
 
 /*
