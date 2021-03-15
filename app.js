@@ -4,7 +4,7 @@ const express = require("express");
 var app = express();
 const mysql2 = require('mysql2');
 const mysql = require('mysql');
-
+const db_setting = require('./config');
 
 
 
@@ -18,13 +18,7 @@ var server = app.listen(serverPort, function(){
 /*
 *   database connection
 */
-exports.connection = mysql.createConnection({
-  host: '127.0.0.1',
-  user: 'root',
-  password: '',
-  port: '3306',
-  database: 'node_api'
-});
+exports.connection = mysql.createConnection(db_setting);
 exports.connection.connect((error) => {
 	if(error){
 		console.log('Error!! mysql connection:' + error.stack);

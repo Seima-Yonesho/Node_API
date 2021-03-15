@@ -5,7 +5,6 @@ const cors = require('cors');
 const mysql2 = require('mysql2/promise');
 const bodyParser = require('body-parser');
 
-const db_setting = require('../config');
 
 router.use(cors({ origin: true, credentials: true }));
 router.use(bodyParser.urlencoded({
