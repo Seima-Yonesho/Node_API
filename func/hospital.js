@@ -29,4 +29,24 @@ router.get('/',　async function(req, res){
 
 });
 
+router.get('/search/:value', function(req, res){
+
+  let value = '%' + req.params.value + '%';
+
+  connection.query(
+		'SELECT * FROM hospitals WHERE address LIKE ?', value,
+		(error, results) => {
+			if(error){
+				console.log('Error!!' + error.stack);
+				res.status(400).send({ msg: 'Error!!' });
+				return;
+			}
+			// console.log(results);
+
+			res.status(200).send(results);
+		}
+	)
+
+});
+
 module.exports = router;

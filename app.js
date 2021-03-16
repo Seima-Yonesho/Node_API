@@ -40,5 +40,5 @@ app.use('/hospital', require('./func/hospital.js'));
 /*
 *   request '/reservation'
 */
-// app.use('/reservation', require('./func/reservation.js'));
+app.use('/reservation', require('./func/reservation.js'));
 
