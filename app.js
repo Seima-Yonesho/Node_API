@@ -1,24 +1,22 @@
-
-const serverPort = 9000;
 const express = require("express");
-var app = express();
+let app = express();
 const mysql2 = require('mysql2');
 const mysql = require('mysql');
-const db_setting = require('./config');
+const config = require('./config');
 
 
 
 /*
 *		server create
 */
-var server = app.listen(serverPort, function(){
+const server = app.listen(config.serverPort, function(){
   console.log("Node.js is listening to PORT:" + server.address().port);
 });
 
 /*
 *   database connection
 */
-exports.connection = mysql.createConnection(db_setting);
+exports.connection = mysql.createConnection(config.db_setting);
 exports.connection.connect((error) => {
 	if(error){
 		console.log('Error!! mysql connection:' + error.stack);

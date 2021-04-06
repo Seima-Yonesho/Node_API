@@ -4,7 +4,7 @@ let myconnection = app.connection;
 const cors = require('cors');
 const mysql2 = require('mysql2/promise');
 const bodyParser = require('body-parser');
-const db_setting = require('../config');
+const config = require('../config');
 
 router.use(cors({ origin: true, credentials: true }));
 router.use(bodyParser.urlencoded({
@@ -25,7 +25,7 @@ router.post('/', async function(req, res){
 
   let connection
 	try {
-		connection = await mysql2.createConnection(db_setting)
+		connection = await mysql2.createConnection(config.db_setting)
 		await connection.beginTransaction();
 
     const values = {
@@ -54,12 +54,30 @@ router.post('/', async function(req, res){
 
 });
 
+router.get('/data/:userID', function(req, res){
+  
+  let userID = req.params.userID;
+
+  myconnection.query(
+		'SELECT * FROM reservations WHERE user_id = ? AND del_flg = 0', userID,
+		(error, results) => {
+			if(error){
+				console.log('Error!!' + error.stack);
+				res.status(400).send({ msg: 'Error!!' });
+				return;
+			}
+      res.status(200).send(results);
+		}
+	)
+
+});
+
 router.get('/search/:userID', function(req, res){
 
   let userID = req.params.userID;
 
   myconnection.query(
-		'SELECT * FROM reservations WHERE user_id = ?', userID,
+		'SELECT * FROM reservations WHERE user_id = ? AND del_flg = 0', userID,
 		(error, results) => {
 			if(error){
 				console.log('Error!!' + error.stack);
@@ -68,11 +86,31 @@ router.get('/search/:userID', function(req, res){
 			}
 
       if(results != ''){
-			  res.status(200).send({ status: false });
+        res.status(200).send({ status: false });
       }
       else{
-			  res.status(200).send({ status: true });
+        res.status(200).send({ status: true });
       }
+
+		}
+	)
+
+});
+
+router.delete('/:id', function(req, res){
+  
+  let reservationID = req.params.id;
+
+  myconnection.query(
+		'update reservations set del_flg = 1 WHERE id = ?', reservationID,
+		(error, results) => {
+			if(error){
+				console.log('Error!!' + error.stack);
+				res.status(400).send({ msg: 'Error!!' });
+				return;
+			}
+
+      res.status(200).send({ msg: '削除完了' });
 
 		}
 	)
